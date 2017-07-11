@@ -1,0 +1,50 @@
+﻿
+<script type="text/javascript">
+    $(function () {
+
+
+        $("#drPrice").change(function () {
+            var idCate = $("#drPrice").val();
+            $.post("/Product/PartialProductHomes", { "idCatess": idCate },
+                function (data) {
+                    $('#Content_RightProduct').html(data);
+                });
+
+            //
+        });
+        $(".alert").hide();
+        ///
+
+    });
+
+</script>
+@model Caesar.Models.tblConfig
+<div class="nVar_Right_Product">
+    <div class="Left_RightProduct">
+        <span>Danh sách sản phẩm</span>
+        
+    </div>
+    <div class="Right_RightProduct">
+        <div class="ArrangesPrice">
+            <select class="drArranges" id="drPrice">
+                <option value="0">Sắp sếp theo giá</option>
+                <option value="1">Tăng dần</option>
+                <option value="2">Giảm dần</option>
+            </select>
+        </div>
+        <div class="ArrangesName">
+
+            <select class="drArranges" id="drName">
+                <option value="0">Sắp sếp theo tên</option>
+                <option value="1">Theo ABC</option>
+                <option value="2">Theo BC</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div id="Content_RightProduct">
+
+
+     @Html.Raw(ViewBag.ListProduct)
+     
+</div>
