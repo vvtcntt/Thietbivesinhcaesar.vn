@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Caesar</RootNamespace>
     <AssemblyName>Caesar</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +40,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CKEditor.NET, Version=3.6.6.2, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL">
@@ -67,16 +70,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -139,6 +140,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.30506.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -206,7 +208,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Admin\Address\addressController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\Agency\AgencyadController.cs" />
     <Compile Include="Controllers\Admin\Banks\BanksController.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Controllers\Admin\Product\ProductSaleadController.cs" />
     <Compile Include="Controllers\Admin\Product\ProductSYNadController.cs" />
     <Compile Include="Controllers\Admin\Role\ModuleController.cs" />
+    <Compile Include="Controllers\Admin\support\supportController.cs" />
     <Compile Include="Controllers\Admin\Url\UrladController.cs" />
     <Compile Include="Controllers\Admin\User\UsersController.cs" />
     <Compile Include="Controllers\Admin\WebSites\WebController.cs" />
@@ -242,11 +245,9 @@
     <Compile Include="Controllers\Display\Product\OrderController.cs" />
     <Compile Include="Controllers\Display\Product\ProductController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaesarContext.cs" />
     <Compile Include="Models\CasaerContext.cs" />
     <Compile Include="Models\CheckLogin.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\HistoryView.cs" />
     <Compile Include="Models\Mapping\HistoryViewMap.cs" />
     <Compile Include="Models\Mapping\ProductConnectMap.cs" />
+    <Compile Include="Models\Mapping\tblAddressMap.cs" />
     <Compile Include="Models\Mapping\tblAgencyMap.cs" />
     <Compile Include="Models\Mapping\tblBankMap.cs" />
     <Compile Include="Models\Mapping\tblBaogiaMap.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="Models\Mapping\tblWebMap.cs" />
     <Compile Include="Models\ProductConnect.cs" />
     <Compile Include="Models\StringClass.cs" />
+    <Compile Include="Models\tblAddress.cs" />
     <Compile Include="Models\tblAgency.cs" />
     <Compile Include="Models\tblBank.cs" />
     <Compile Include="Models\tblBaogia.cs" />
@@ -1403,6 +1406,7 @@
     <Content Include="Content\Display\iCon\bg_Top_Right.png" />
     <Content Include="Content\Display\iCon\btc.jpg" />
     <Content Include="Content\Display\iCon\bullets.png" />
+    <Content Include="Content\Display\iCon\clock.gif" />
     <Content Include="Content\Display\iCon\comments-icon.png" />
     <Content Include="Content\Display\iCon\dichvubanhang.png" />
     <Content Include="Content\Display\iCon\dichvubanhang1.png" />
@@ -1754,9 +1758,13 @@
     <Content Include="Views\Partnerad\Index.cshtml" />
     <Content Include="Views\Partnerad\Create.cshtml" />
     <Content Include="Views\Partnerad\Edit.cshtml" />
+    <Content Include="Views\support\Create.cshtml" />
+    <Content Include="Views\support\Edit.cshtml" />
+    <Content Include="Views\support\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\ckfinder\ckfinder\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -202,7 +202,15 @@ namespace Caesar.Controllers.Display.Product
             chuoisplq.Append("</div>");
 
 
-            ViewBag.chuoisplq = chuoisplq;
+            ViewBag.chuoisplq = chuoisplq; string address =product.Address.ToString();
+            string resultAddress = "";
+            if (address != null && address != "")
+            {
+                int idaddress = int.Parse(address);
+                if (db.tblAddresses.FirstOrDefault(p => p.id == idaddress) != null)
+                    resultAddress = db.tblAddresses.FirstOrDefault(p => p.id == idaddress).Name;
+            }
+            ViewBag.address = resultAddress;
             return View(product);
         }
         public ActionResult ListProduct(string tag)

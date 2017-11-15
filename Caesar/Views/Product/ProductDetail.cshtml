@@ -85,9 +85,9 @@
                             </h2>
                             <span class="Code">Mã sản phẩm : @Model.Code</span>
 
-                            @if (Model.Address == "1")
+                            @if (ViewBag.address!=null && ViewBag.address!="")
                             { <span class="Address">
-                                Xuất xứ : Chính hãng
+                                Xuất xứ : @ViewBag.address
                             </span>
                             }
                             else

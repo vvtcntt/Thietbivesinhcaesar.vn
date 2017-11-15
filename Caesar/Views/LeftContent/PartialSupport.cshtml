@@ -1,30 +1,35 @@
 ﻿
 @model IEnumerable<Caesar.Models.tblSupport>
-<div id="Box_Hotline">
-    <a href="" title="">Hotline : <span>@Html.Raw(ViewBag.Hotline)</span></a>
+<div class="timeWorks">
+    <span class="tm1">Thời gian làm việc : <strong>8H00 - 21H15</strong> </span>
+    <span class="tm2">Làm việc tất cả các ngày trong tuần</span>
+    <span class="tm3">
+        Khách hàng mua hàng từ <strong>18H00 - 21H15</strong> cần đặt lịch trước qua số hotline : <strong>1900 63 66 95</strong>
+    </span>
+</div>
+<div class="Box_Hotline">
+    <a href="#" title="#">Hotline : <span>@Html.Raw(ViewBag.Hotline)</span></a>
+</div>
+<div class="Box_Hotline">
+    <a href="#" title="#">Tổng đài : <span>@Html.Raw(ViewBag.HotlineOUT)</span></a>
+</div>
+<div class="Box_Hotline">
+    <a href="#" title="#">Bảo hành : <span>@Html.Raw(ViewBag.MobileOUT)</span></a>
 </div>
 <div id="Supports">
     <div id="Top_Support"> <span>Hỗ trợ trực tuyến</span></div>
     <div id="Bottom_Support">
-        @foreach(var item in Model)
-        { 
-             <div class="Tear_Support">
-            <div class="Left">
-                <span class="sp1">@item.Mission :</span>
-                <span class="sp2">@item.Name :</span>
+        @foreach (var item in Model)
+        { <div class="Tear_Supports">
+            <div class="Left_Tear_Support">
+                <span class="htv1">@item.Mission:</span><span class="htv2">@item.Name</span>
             </div>
-            <div class="Right">
-                <div class="Yahoo">
-                    <a href="ymsgr:sendim?@item.Yahoo">
-                        <img src="http://opi.yahoo.com/online?u=@item.Yahoo&m=g&t=1" alt="Yahoo" class="imgYahoo" />
-                    </a>
+            <div class="Right_Tear_Support">
+                <div class="topTearSupport">
+                    <a href="tel:@item.Mobile" title="@item.Name"><img src="/Content/Display/iCon/logo_zalo.png" alt="@item.Name"></a>
+                    <a href="tel:@item.Mobile" title="@item.Name"><img src="/Content/Display/iCon/Viber_logo.png" alt="@item.Name"></a>
                 </div>
-                <div class="Skype">
-                    <a href="Skype:@item.Skyper?chat">
-                     
-                        <img class="imgSkyper" src="~/Content/Display/iCon/skype-icon.png" title="@item.Name" alt="Hỗ trợ Skyper">
-                    </a>
-                </div>
+                <div class="bottomTearSupport"><span>@item.Mobile</span></div>
             </div>
         </div>
         }

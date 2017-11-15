@@ -18,6 +18,7 @@ namespace Caesar.Models
 
         public DbSet<HistoryView> HistoryViews { get; set; }
         public DbSet<ProductConnect> ProductConnects { get; set; }
+        public DbSet<tblAddress> tblAddresses { get; set; }
         public DbSet<tblAgency> tblAgencies { get; set; }
         public DbSet<tblBank> tblBanks { get; set; }
         public DbSet<tblBaogia> tblBaogias { get; set; }
@@ -75,6 +76,7 @@ namespace Caesar.Models
         {
             modelBuilder.Configurations.Add(new HistoryViewMap());
             modelBuilder.Configurations.Add(new ProductConnectMap());
+            modelBuilder.Configurations.Add(new tblAddressMap());
             modelBuilder.Configurations.Add(new tblAgencyMap());
             modelBuilder.Configurations.Add(new tblBankMap());
             modelBuilder.Configurations.Add(new tblBaogiaMap());

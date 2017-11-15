@@ -415,7 +415,14 @@ namespace Caesar.Controllers.Admin.Product
                     chuoicolor += "<label><input type=\"checkbox\" style=\"margin:0px !important\"  name=\"chkCol+" + listcolor[i].id + "\" id=\"chkCol+" + listcolor[i].id + "\" class=\"chkFuc\" /> " + listcolor[i].Name + "</label></br>";
                 }
                 ViewBag.chuoicolor = chuoicolor;
-                    return View();
+                var listaddress = db.tblAddresses.Where(p => p.Active == true).OrderBy(p => p.Ord).ToList();
+                var lstAddress = new List<SelectListItem>();
+                foreach (var item in listaddress)
+                {
+                    lstAddress.Add(new SelectListItem { Text = item.Name, Value = item.id.ToString() });
+                }
+                ViewBag.drAddress = new SelectList(lstAddress, "Value", "Text", 0);
+                return View();
             }
             else
             {
@@ -446,7 +453,11 @@ namespace Caesar.Controllers.Admin.Product
                 string[] listarray = tblproduct.ImageLinkDetail.Split('/');
                 string ImageLinkDetail = Collection["ImageLinkDetail"];
                 string imagethum = listarray[listarray.Length - 1];
-                tblproduct.ImageLinkThumb = "/Images/_thumbs/Images/" + imagethum;
+                tblproduct.ImageLinkThumb = "/Images/_thumbs/Images/" + imagethum; string idAddress = Collection["drAddress"];
+                if (idAddress != null && idAddress != "")
+                {
+                    tblproduct.Address = int.Parse(idAddress);
+                }
                 db.tblProducts.Add(tblproduct);
                 db.SaveChanges();
                 var listprro = db.tblProducts.OrderByDescending(p => p.id).Take(1).ToList();
@@ -822,6 +833,22 @@ namespace Caesar.Controllers.Admin.Product
                     chuoi += "</tr>";
                 }
                 ViewBag.chuoi = chuoi;
+
+
+                string idaddress = tblproduct.Address.ToString();
+                var listaddress = db.tblAddresses.Where(p => p.Active == true).OrderBy(p => p.Ord).ToList();
+                var lstAddress = new List<SelectListItem>();
+                foreach (var item in listaddress)
+                {
+                    lstAddress.Add(new SelectListItem { Text = item.Name, Value = item.id.ToString() });
+                }
+                if (idaddress != null && idaddress != "")
+                {
+                    ViewBag.drAddress = new SelectList(lstAddress, "Value", "Text", int.Parse(idaddress));
+
+                }
+                else
+                    ViewBag.drAddress = new SelectList(lstAddress, "Value", "Text", 0);
                 return View(tblproduct);
             }
             else
@@ -917,7 +944,15 @@ namespace Caesar.Controllers.Admin.Product
                     tblproduct.DateCreate = DateTime.Now;
                     tblproduct.ViewHomes = ViewHomes;
                     tblproduct.Title = Title;
-                    tblproduct.Keyword = Keyword;
+                    tblproduct.Keyword = Keyword; string idAddress = collection["drAddress"];
+                    if (idAddress != null && idAddress != "")
+                    {
+                        tblproduct.Address = int.Parse(idAddress);
+                    }
+                    else
+                    {
+                        tblproduct.Address = 0;
+                    }
                     string urls = db.tblGroupProducts.Find(idCate).Tag;
                     if (URL == true)
                     {
