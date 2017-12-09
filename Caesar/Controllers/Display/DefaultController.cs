@@ -93,7 +93,7 @@ namespace Caesar.Controllers.Display
             tblConfig tblconfig = db.tblConfigs.First();
             int Date1 = int.Parse(DateTime.Now.Hour.ToString());
            
-                ViewBag.Chuoihotline = "<p><span class=\"icon_Phone\"></span> : " + tblconfig.MobileIN + "</p> <p><span class=\"icon_Hotline\"></span> : Hotline " + tblconfig.HotlineIN + " - Tổng đài bán hàng : "+tblconfig.HotlineOUT+"</p>";
+                ViewBag.Chuoihotline = " <p><span class=\"icon_Hotline\"></span> : Hotline " + tblconfig.HotlineIN + " - Tổng đài bán hàng : " + tblconfig.HotlineOUT + "</p><p><span class=\"icon_Phone\"></span> : " + tblconfig.MobileIN + "</p>";
             
             
              
@@ -117,11 +117,9 @@ namespace Caesar.Controllers.Display
                 Skype += "<div class=\"Tear_Skype\">";
                 Skype += "<div class=\"Left_Tear_Skype\">";
                 Skype += "<span class=\"Func\">" + ListSupport[i].Name + " :</span>";
-
                 Skype += "</div>";
                 Skype += "<div class=\"Right_Tear_Skype\">";
                 Skype += "<a href=\"Skype:" + ListSupport[i].Skyper + "?chat\">";
-
                 Skype += "<img class=\"imgSkyper\" src=\"/Content/Display/iCon/skype-icon.png\" title=\"" + ListSupport[i].Name + "\" alt=\"" + ListSupport[i].Skyper + "\">";
                 Skype += "</a>";
                 Skype += "</div>";
