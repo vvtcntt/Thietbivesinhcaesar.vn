@@ -153,7 +153,7 @@ namespace Caesar.Controllers.Admin.Product
                 }
                 if (text != null && text != "")
                 {
-                    listProduct = db.tblProducts.Where(p => p.Name.ToUpper().Contains(text.ToUpper()) && p.Active == true).OrderByDescending(p => p.DateCreate).ToList();
+                    listProduct = db.tblProducts.Where(p => p.Name.ToUpper().Contains(text.ToUpper()) ).OrderByDescending(p => p.DateCreate).ToList();
                     ViewBag.chuoicout = "<span style='color: #A52A2A;'>" + listProduct.Count + "</span> ";
 
                     return PartialView("PartialProductData", listProduct.ToPagedList(pageNumber, pageSize));
@@ -223,7 +223,7 @@ namespace Caesar.Controllers.Admin.Product
 
             return PartialView(listProduct.ToPagedList(pageNumber, pageSize));
         }
-        public ActionResult UpdateInfoProduct(string code,string productid,string chkPri, string price, string saleprice, string cbIsActive, string chkHome, string chkSale, string ordernumber, string idCate, string Status)
+        public ActionResult UpdateInfoProduct(string code,string productid,string chkPri, string price, string saleprice, string cbIsActive, string chkHome, string chkSale, string chkPriority, string ordernumber, string idCate, string Status)
         {
             if (ClsCheckRole.CheckQuyen(4, 2, int.Parse(Request.Cookies["Username"].Values["UserID"])) == true)
             {
@@ -233,7 +233,8 @@ namespace Caesar.Controllers.Admin.Product
                 Product.Price = int.Parse(price);
                 Product.PriceSale = int.Parse(saleprice);
                 Product.Code = code;
-                Product.ViewHomes = bool.Parse(chkHome);
+                Product.ViewHomes = bool.Parse(chkHome); Product.Priority = bool.Parse(chkPriority);
+
                 Product.Active = bool.Parse(cbIsActive);
                 Product.ProductSale = bool.Parse(chkSale);
                 Product.idCate = int.Parse(idCate);

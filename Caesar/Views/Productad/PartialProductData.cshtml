@@ -31,7 +31,8 @@
             <th scope="col">Hiển thị</th>
             <th scope="col">Trang chủ</th>
             <th scope="col">Khuyến mại</th>
-            <th scope="col">Làm mới</th> 
+            <th scope="col">KM Nổi Bật</th>
+            <th scope="col">Làm mới</th>
             <th scope="col">Thao tác</th>
         </tr>
         @{                CaesarContext db = new CaesarContext();
@@ -51,182 +52,203 @@
         {
             if (item.Active == true)
             {
-                <tr class="row0">
-                    <td align="center" style="width:8px;">
-                        <input id="chk_@item.id" type="checkbox" name="chk_@item.id" />
+    <tr class="row0">
+        <td align="center" style="width:8px;">
+            <input id="chk_@item.id" type="checkbox" name="chk_@item.id" />
 
-                    </td>
-                    <td class="text-center" align="center" style="width:30px;">
-                        <img src="@item.ImageLinkThumb" style=" max-height:60px" />
-                    </td>
-                    <td class="Code" align="center" style="width:80px;">
-                        <input type="text" id="txtCode" name="txtCode" style="width: 100px; text-align: left;" value="@item.Code"
-                               onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td>
-                        <a title="Sửa sản phẩm @item.Name" href="../../Productad/Edit?id=@item.id" id="@Html.Raw("lbtUpdateProduct")@item.id"> @item.Name</a>
-                    </td>
-                    <td class="ddlMenu" align="center" style="width:200px;">
-                        
-                        @Html.DropDownList(@item.idCate.ToString(), new SelectList(carlist, "Value", "Text", @item.idCate), "Lựa chọn danh mục", new { onchange = "javascript:return UpdateProduct2(" + item.id + ");", @Name = "ddlMenu", @id = "ddlMenu" })
-                    </td>
-                    <td class="Price" align="center" style="width:90px;">
-                        <input type="text" id="txtPrice" style="width: 75px; text-align: right;" value="@item.Price"
-                               onchange="javascript:return UpdateProduct2(@item.id);" culture="vi-VN" />
-                    </td>
-                    <td class="SalePrice" align="center" style="width:70px;">
-                        <input type="text" id="txtSalePrice" style="width: 75px; text-align: right;" value="@item.PriceSale"
-                               onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td class="Status" align="center" style="width:95px;">
-                        <select id="ddlStatus" style="width: 95px; text-align: left;" onchange="javascript:return UpdateProduct2(@item.id);">
-                            @if(item.Status==true)
-                            {
-                            <option value="true" selected="selected">Còn hàng</option>
-                            <option value="false">Hết hàng</option>
-                            }
-                            else
-                            {
-                                <option value="true" >Còn hàng</option>
-    <option value="false" selected="selected">Hết hàng</option>
-                            }
-                        </select>
-                    </td>
-                     
-                    <td class="OrderNumber" align="center" style="width:45px;">
-                        <input type="text" id="txtOrderNumber" style="width: 30px;" value="@item.Ord" onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td class="Active text-center" align="center" style="width:45px;">
-                        @if (item.Active == true)
-                        {
-                            <input type="checkbox" id="cbIsActive" name="cbIsActive" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="cbIsActive" name="cbIsActive" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                    </td>
-                    <td class="Viewhomes text-center" align="center" style="width:45px;">
-                        @if (item.ViewHomes == true)
-                        {
-                            <input type="checkbox" id="chkHome" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="chkHome" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                    </td>
-                    <td class="Sale text-center" align="center" style="width:45px;">
-                        @if (item.ProductSale == true)
-                        {
-                            <input type="checkbox" id="chkSale" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="chkSale" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
+        </td>
+        <td class="text-center" align="center" style="width:30px;">
+            <img src="@item.ImageLinkThumb" style=" max-height:60px" />
+        </td>
+        <td class="Code" align="center" style="width:80px;">
+            <input type="text" id="txtCode" name="txtCode" style="width: 100px; text-align: left;" value="@item.Code"
+                   onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td>
+            <a title="Sửa sản phẩm @item.Name" href="../../Productad/Edit?id=@item.id" id="@Html.Raw("lbtUpdateProduct")@item.id"> @item.Name</a>
+        </td>
+        <td class="ddlMenu" align="center" style="width:200px;">
 
-                    </td>
-                    <td class="Sale text-center" align="center" style="width:45px;">
-                        <a href="" title="" onclick="javascript:return UpdateTime(@item.id);"><i class="icon-refresh"></i></a>
-                    </td>
-                    <td class="text-center" align="center" style="width:90px;">
-                        <a href="" class="action-link-button DeleteProduct" id="@item.id"  onclick="javascript:return DeleteProduct(@item.id);" title="Xóa sản phẩm">
-                            <i class="icon-trash"></i>
-                        </a>
-                        <a class="action-link-button" title="Thêm sản phẩm so sánh" href="javascripts:void(0)" rel="miendatwebPopup">
-                            <i class="icon-plus"></i>
-                        </a>
-                    </td>
-                </tr>}
+            @Html.DropDownList(@item.idCate.ToString(), new SelectList(carlist, "Value", "Text", @item.idCate), "Lựa chọn danh mục", new { onchange = "javascript:return UpdateProduct2(" + item.id + ");", @Name = "ddlMenu", @id = "ddlMenu" })
+        </td>
+        <td class="Price" align="center" style="width:90px;">
+            <input type="text" id="txtPrice" style="width: 75px; text-align: right;" value="@item.Price"
+                   onchange="javascript:return UpdateProduct2(@item.id);" culture="vi-VN" />
+        </td>
+        <td class="SalePrice" align="center" style="width:70px;">
+            <input type="text" id="txtSalePrice" style="width: 75px; text-align: right;" value="@item.PriceSale"
+                   onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td class="Status" align="center" style="width:95px;">
+            <select id="ddlStatus" style="width: 95px; text-align: left;" onchange="javascript:return UpdateProduct2(@item.id);">
+                @if (item.Status == true)
+                {
+                    <option value="true" selected="selected">Còn hàng</option>
+                    <option value="false">Hết hàng</option>
+                }
+                else
+                {
+                    <option value="true">Còn hàng</option>
+                    <option value="false" selected="selected">Hết hàng</option>
+                }
+            </select>
+        </td>
+
+        <td class="OrderNumber" align="center" style="width:45px;">
+            <input type="text" id="txtOrderNumber" style="width: 30px;" value="@item.Ord" onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td class="Active text-center" align="center" style="width:45px;">
+            @if (item.Active == true)
+            {
+                <input type="checkbox" id="cbIsActive" name="cbIsActive" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
             else
             {
-                <tr class="row0" style="opacity:0.2">
-                    <td align="center" style="width:8px;">
-                        <input id="chk_@item.id" type="checkbox" name="chk_@item.id" />
+                <input type="checkbox" id="cbIsActive" name="cbIsActive" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+        </td>
+        <td class="Viewhomes text-center" align="center" style="width:45px;">
+            @if (item.ViewHomes == true)
+            {
+                <input type="checkbox" id="chkHome" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkHome" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+        </td>
+        <td class="Sale text-center" align="center" style="width:45px;">
+            @if (item.ProductSale == true)
+            {
+                <input type="checkbox" id="chkSale" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkSale" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
 
-                    </td>
-                    <td class="text-center" align="center" style="width:30px;">
-                        <img src="@item.ImageLinkThumb" style=" max-height:60px" onerror="this.src='';" />
-                    </td>
-                    <td class="Code" align="center" style="width:80px;">
-                        <input type="text" id="txtCode" style="width: 70px; text-align: left;" value="@item.Code"
-                               onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td>
-                        <a href="Sửa sản phẩm @item.Name" id="@Html.Raw("lbtUpdateProduct")@item.id"> @item.Name</a>
-                    </td>
-                    <td class="ddlMenu" align="center" style="width:200px;">
-                       
-                        @Html.DropDownList(@item.idCate.ToString(), new SelectList(carlist, "Value", "Text", @item.idCate), "Lựa chọn danh mục", new { onchange = "javascript:return UpdateProduct2(" + item.id + ");", @Name = "ddlMenu", @id = "ddlMenu" })
-                    </td>
-                    <td class="Price" align="center" style="width:90px;">
-                        <input type="text" id="txtPrice" style="width: 75px; text-align: right;" value="@item.Price"
-                               onchange="javascript:return UpdateProduct2(@item.id);" culture="vi-VN" />
-                    </td>
-                    <td class="SalePrice" align="center" style="width:70px;">
-                        <input type="text" id="txtSalePrice" style="width: 75px; text-align: right;" value="@item.PriceSale"
-                               onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td class="Status" align="center" style="width:95px;">
-                        <select id="ddlStatus" style="width: 95px; text-align: left;" onchange="javascript:return UpdateProduct2(@item.id);">
-                            @if (item.Status == true)
-                            {
-                                <option value="true" selected="selected">Còn hàng</option>
-                                <option value="false">Hết hàng</option>
-                            }
-                            else
-                            {
-                                <option value="true">Còn hàng</option>
-                                <option value="false" selected="selected">Hết hàng</option>
-                            }
-                        </select>
-                    </td>
+        </td>
+        <td class="Priority text-center" align="center" style="width:45px;">
+            @if (item.Priority == true)
+            {
+                <input type="checkbox" id="chkPriority" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkPriority" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
 
-                    <td class="OrderNumber" align="center" style="width:45px;">
-                        <input type="text" id="txtOrderNumber" style="width: 30px;" value="@item.Ord" onchange="javascript:return UpdateProduct2(@item.id);" />
-                    </td>
-                    <td class="Active text-center" align="center" style="width:45px;">
-                        @if (item.Active == true)
-                        {
-                            <input type="checkbox" id="cbIsActive" name="cbIsActive" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="cbIsActive" name="cbIsActive" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                    </td>
-                    <td class="Viewhomes text-center" align="center" style="width:45px;">
-                        @if (item.ViewHomes == true)
-                        {
-                            <input type="checkbox" id="chkHome" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="chkHome" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                    </td>
-                    <td class="Sale text-center" align="center" style="width:45px;">
-                        @if (item.ProductSale == true)
-                        {
-                            <input type="checkbox" id="chkSale" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
-                        else
-                        {
-                            <input type="checkbox" id="chkSale" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
-                        }
+        </td>
+        <td class="Sale text-center" align="center" style="width:45px;">
+            <a href="" title="" onclick="javascript:return UpdateTime(@item.id);"><i class="icon-refresh"></i></a>
+        </td>
+        <td class="text-center" align="center" style="width:90px;">
+            <a href="" class="action-link-button DeleteProduct" id="@item.id" onclick="javascript:return DeleteProduct(@item.id);" title="Xóa sản phẩm">
+                <i class="icon-trash"></i>
+            </a>
+            <a class="action-link-button" title="Thêm sản phẩm so sánh" href="javascripts:void(0)" rel="miendatwebPopup">
+                <i class="icon-plus"></i>
+            </a>
+        </td>
+    </tr>}
+            else
+            {
+    <tr class="row0" style="opacity:0.2">
+        <td align="center" style="width:8px;">
+            <input id="chk_@item.id" type="checkbox" name="chk_@item.id" />
 
-                    </td>
-                    <td class="text-center" align="center" style="width:90px;">
-                        <a href="" class="action-link-button DeleteProduct" id="@item.id" onclick="javascript:return DeleteProduct(@item.id);" title="Xóa sản phẩm">
-                    
-                            <i class="icon-trash"></i>
-                        </a>
-                        <a class="action-link-button" title="Thêm sản phẩm so sánh" href="/admin.aspx?module=products&act=add&cateid=832428&random=5039628&urlreturn=%2fadmin.aspx%3fmodule%3dcategories">
-                            <i class="icon-plus"></i>
-                        </a>
-                    </td>
-                </tr>}
+        </td>
+        <td class="text-center" align="center" style="width:30px;">
+            <img src="@item.ImageLinkThumb" style=" max-height:60px" onerror="this.src='';" />
+        </td>
+        <td class="Code" align="center" style="width:80px;">
+            <input type="text" id="txtCode" style="width: 70px; text-align: left;" value="@item.Code"
+                   onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td>
+            <a href="Sửa sản phẩm @item.Name" id="@Html.Raw("lbtUpdateProduct")@item.id"> @item.Name</a>
+        </td>
+        <td class="ddlMenu" align="center" style="width:200px;">
+
+            @Html.DropDownList(@item.idCate.ToString(), new SelectList(carlist, "Value", "Text", @item.idCate), "Lựa chọn danh mục", new { onchange = "javascript:return UpdateProduct2(" + item.id + ");", @Name = "ddlMenu", @id = "ddlMenu" })
+        </td>
+        <td class="Price" align="center" style="width:90px;">
+            <input type="text" id="txtPrice" style="width: 75px; text-align: right;" value="@item.Price"
+                   onchange="javascript:return UpdateProduct2(@item.id);" culture="vi-VN" />
+        </td>
+        <td class="SalePrice" align="center" style="width:70px;">
+            <input type="text" id="txtSalePrice" style="width: 75px; text-align: right;" value="@item.PriceSale"
+                   onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td class="Status" align="center" style="width:95px;">
+            <select id="ddlStatus" style="width: 95px; text-align: left;" onchange="javascript:return UpdateProduct2(@item.id);">
+                @if (item.Status == true)
+                {
+                    <option value="true" selected="selected">Còn hàng</option>
+                    <option value="false">Hết hàng</option>
+                }
+                else
+                {
+                    <option value="true">Còn hàng</option>
+                    <option value="false" selected="selected">Hết hàng</option>
+                }
+            </select>
+        </td>
+
+        <td class="OrderNumber" align="center" style="width:45px;">
+            <input type="text" id="txtOrderNumber" style="width: 30px;" value="@item.Ord" onchange="javascript:return UpdateProduct2(@item.id);" />
+        </td>
+        <td class="Active text-center" align="center" style="width:45px;">
+            @if (item.Active == true)
+            {
+                <input type="checkbox" id="cbIsActive" name="cbIsActive" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="cbIsActive" name="cbIsActive" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+        </td>
+        <td class="Viewhomes text-center" align="center" style="width:45px;">
+            @if (item.ViewHomes == true)
+            {
+                <input type="checkbox" id="chkHome" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkHome" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+        </td>
+        <td class="Sale text-center" align="center" style="width:45px;">
+            @if (item.ProductSale == true)
+            {
+                <input type="checkbox" id="chkSale" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkSale" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+        <td class="Priority text-center" align="center" style="width:45px;">
+            @if (item.Priority == true)
+            {
+                <input type="checkbox" id="chkPriority" value="true" checked onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+            else
+            {
+                <input type="checkbox" id="chkPriority" value="false" onchange="javascript:return UpdateProduct2(@item.id);" />
+            }
+
+        </td>
+        </td>
+        <td class="text-center" align="center" style="width:90px;">
+            <a href="" class="action-link-button DeleteProduct" id="@item.id" onclick="javascript:return DeleteProduct(@item.id);" title="Xóa sản phẩm">
+
+                <i class="icon-trash"></i>
+            </a>
+            <a class="action-link-button" title="Thêm sản phẩm so sánh" href="/admin.aspx?module=products&act=add&cateid=832428&random=5039628&urlreturn=%2fadmin.aspx%3fmodule%3dcategories">
+                <i class="icon-plus"></i>
+            </a>
+        </td>
+    </tr>}
 
         }
 

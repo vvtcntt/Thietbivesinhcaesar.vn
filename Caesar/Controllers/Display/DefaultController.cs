@@ -93,7 +93,7 @@ namespace Caesar.Controllers.Display
             tblConfig tblconfig = db.tblConfigs.First();
             int Date1 = int.Parse(DateTime.Now.Hour.ToString());
            
-                ViewBag.Chuoihotline = " <p><span class=\"icon_Hotline\"></span> : Hotline " + tblconfig.HotlineIN + " - Tổng đài bán hàng : " + tblconfig.HotlineOUT + "</p><p><span class=\"icon_Phone\"></span> : " + tblconfig.MobileIN + "</p>";
+                ViewBag.Chuoihotline = " <p><span class=\"icon_Hotline\"></span> : Hotline " + tblconfig.Mobile1 + " - "+tblconfig.Mobile2+ " -<p><span class=\"icon_Phone\"></span> Cơ sở 1 : " + tblconfig.Hotline1 + "</p></p><p><span class=\"icon_Phone\"></span> Cơ sở 2 :" + tblconfig.Hotline2 + "</p>";
             
             
              
@@ -203,6 +203,7 @@ namespace Caesar.Controllers.Display
             //}
             //else
             //{
+            if(video.Count>0)
                 chuoivideo.Append(" <iframe width=\"100%\" height=\"242px\" src=\"http://www.youtube.com/embed/" + video[0].Code + "?;hl=en&amp;fs=1&amp;autoplay=0;loop=1;repeat=0;rel=0\" frameborder=\"0\" allowfullscreen></iframe>");
             //}
             ViewBag.chuoivideo = chuoivideo;
@@ -267,9 +268,9 @@ namespace Caesar.Controllers.Display
         }
         public PartialViewResult Productdb()
         {
-            var spdongbo = db.tblProducts.Where(p => p.Active == true && p.idCate == 126 && p.ViewHomes==true).OrderBy(p => p.Ord).ToList();
+            var listProductSyn = db.tblProductSyns.Where(p => p.Active == true  ).OrderBy(p => p.Ord).ToList();
             string chuoi="";
-            if(spdongbo.Count>0)
+            if(listProductSyn.Count>0)
             {
             chuoi+="<div id=\"Product_Db\">   ";
              chuoi+="<div class=\"nVar_Product\">   ";
@@ -280,21 +281,25 @@ namespace Caesar.Controllers.Display
                  chuoi+="<div class=\"Right_nVar_Product\"></div>   ";
              chuoi+="</div>   ";
              chuoi+="<div id=\"Content_Product_Db\">   ";
-                for(int i=0;i<spdongbo.Count;i++)
+                chuoi += "<div class=\"owl-carousel owl-theme\">";
+                for (int i = 0; i < listProductSyn.Count; i++)
                 {
-                 chuoi+="<div class=\"Tear_1\">   ";
-                     chuoi+="<div class=\"spdb\"></div>   ";
-                     chuoi+="<div class=\"img_thumb\">   ";
-                         chuoi+="<a href=\"/1/"+spdongbo[i].Tag+"-"+spdongbo[i].id+".aspx\" title=\""+spdongbo[i].Name+"\"><img src=\""+spdongbo[i].ImageLinkThumb+"\" title=\""+spdongbo[i].Name+"\" /></a>   ";
-                     chuoi+="</div>   ";
-                    chuoi += "<a class=\"Name\" href=\"/1/"+spdongbo[i].Tag+"-"+spdongbo[i].id+".aspx\" title=\"" + spdongbo[i].Name + "\">" + spdongbo[i].Name + "</a>   ";
-                     chuoi+="<span class=\"Headshort\"> › "+spdongbo[i].Description+"</span>   ";
-                     chuoi += "<span class=\"Price\">Giá : " + string.Format("{0:#,#}", spdongbo[i].Price) + " vnđ</span>   ";
-                     chuoi += "<span class=\"PriceSale\">Khuyến mại : " + string.Format("{0:#,#}", spdongbo[i].Price) + " vnđ</span>   ";
-                 chuoi+="</div>   ";
+                    chuoi += "<div class=\"item spdb\">";
+                    chuoi += "<div class=\"sptb\"></div>";
+                    chuoi += "<div class=\"img_spdb\">";
+                    chuoi += "<a href=\"/syn/" + listProductSyn[i].Tag + "\" title=\"" + listProductSyn[i].Name + "\"><img src=\"" + listProductSyn[i].ImageLinkThumb + "\" alt=\"" + listProductSyn[i].Name + "\" /></a>";
+                    chuoi += "</div>";
+                    chuoi += "<a href=\"/syn/" + listProductSyn[i].Tag + "\" class=\"Name\" title=\"" + listProductSyn[i].Name + "\">" + listProductSyn[i].Name + "</a>";
+                    chuoi += "<div class=\"Bottom_Tear_Sale\">";
+                    chuoi += "<div class=\"Price\">";
+                    chuoi += "<p class=\"PriceSale\">" + string.Format("{0:#,#}", listProductSyn[i].PriceSale) + " <span>đ</span></p>";
+                    chuoi += " <p class=\"Price_s\">" + string.Format("{0:#,#}", listProductSyn[i].Price) + "</p>";
+                    chuoi += "</div>";
+                    chuoi += "</div>";
+                    chuoi += "</div>";
                 }
 
-             chuoi+="</div>   ";
+                chuoi +="</div>   ";
             chuoi+="</div>   ";
         }
             ViewBag.productdb = chuoi;
@@ -303,6 +308,9 @@ namespace Caesar.Controllers.Display
         //Homes
 
         //Count Online
-       
+        public PartialViewResult callPartial()
+        {
+            return PartialView(db.tblConfigs.First());
+        }
     }
 }

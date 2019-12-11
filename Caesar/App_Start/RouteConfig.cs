@@ -23,6 +23,9 @@ namespace Caesar
             routes.MapRoute(name: "Contact", url: "Lien-he.aspx", defaults: new { controller = "Contacts", action = "Index" });
             routes.MapRoute(name: "SearchProduct", url: "SearchProduct", defaults: new { controller = "Product", action = "Search" });
             routes.MapRoute(name: "Order", url: "Order", defaults: new { controller = "Order", action = "OrderIndex" });
+            routes.MapRoute(name: "ban-tin-khuyen-mai", url: "ban-tin-khuyen-mai", defaults: new { controller = "product", action = "detail" });
+            routes.MapRoute("ProductSyn", "Syn/{Tag}/{*catchall}", new { controller = "ProductSyn", action = "ProductSyn_Detail", tag = UrlParameter.Optional }, new { controller = "^P.*", action = "^ProductSyn_Detail$" });
+            routes.MapRoute(name: "combo-caesar", url: "combo-caesar", defaults: new { controller = "ProductSyn", action = "list" });
 
             routes.MapRoute(name: "Maps", url: "Ban-do.aspx", defaults: new { controller = "MapsDisplay", action = "Index" });
             routes.MapRoute(name: "Admin", url: "Admin", defaults: new { controller = "Login", action = "LoginIndex" });

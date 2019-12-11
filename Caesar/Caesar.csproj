@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -244,7 +245,7 @@
     <Compile Include="Controllers\Display\News\NewsController.cs" />
     <Compile Include="Controllers\Display\Product\OrderController.cs" />
     <Compile Include="Controllers\Display\Product\ProductController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Display\Product\ProductSynController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1391,6 +1392,13 @@
     <Content Include="Content\Display\Css\Product_Res.css" />
     <Content Include="Content\Display\Css\Slide.css" />
     <Content Include="Content\Display\Css\style.css" />
+    <Content Include="Content\Display\Css\update\call.css" />
+    <Content Include="Content\Display\Css\update\owl.carousel.min.css" />
+    <Content Include="Content\Display\Css\update\owl.theme.default.min.css" />
+    <Content Include="Content\Display\Css\update\Popup_ud.css" />
+    <Content Include="Content\Display\Css\update\product.css" />
+    <Content Include="Content\Display\Css\update\sale.css" />
+    <Content Include="Content\Display\Css\update\times.css" />
     <Content Include="Content\Display\Default.html" />
     <Content Include="Content\Display\iCon\Adw-1.jpg" />
     <Content Include="Content\Display\iCon\Adw.jpg" />
@@ -1455,6 +1463,9 @@
     <Content Include="Content\Display\iCon\texture1.png" />
     <Content Include="Content\Display\iCon\thanhtoannhanhgon.png" />
     <Content Include="Content\Display\iCon\thanhtoannhanhgon1.png" />
+    <Content Include="Content\Display\iCon\update\calling.gif" />
+    <Content Include="Content\Display\iCon\update\hinhtron.png" />
+    <Content Include="Content\Display\iCon\update\icon-zalo.png" />
     <Content Include="Content\Display\News.html" />
     <Content Include="Content\Display\NewsDetail.html" />
     <Content Include="Content\Display\Order.html" />
@@ -1463,6 +1474,9 @@
     <Content Include="Content\Display\Script\jquery.mmenu.min.all.js" />
     <Content Include="Content\Display\Script\jquery.nivo.slider.js" />
     <Content Include="Content\Display\Script\jquery.nivo.slider.pack.js" />
+    <Content Include="Content\Display\Script\update\jquery.popupMiendatweb.min.js" />
+    <Content Include="Content\Display\Script\update\owl.carousel.min.js" />
+    <Content Include="Content\Display\Script\update\script.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -1547,6 +1561,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Content\Display\Caesar.psd" />
     <Content Include="Content\Display\Font\UTMCafeta.ttf" />
+    <Content Include="Content\Display\Font\UTMSwiss.ttf" />
+    <Content Include="Content\Display\Font\UTM-Swiss-CondensedBold.ttf" />
+    <Content Include="Content\Display\Font\UTMSwissBlackCondensed.ttf" />
+    <Content Include="Content\Display\Font\UTMSwissCondensedBold.ttf" />
     <None Include="Properties\PublishProfiles\Thietbivesinhcaesar.vn.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1761,6 +1779,10 @@
     <Content Include="Views\support\Create.cshtml" />
     <Content Include="Views\support\Edit.cshtml" />
     <Content Include="Views\support\Index.cshtml" />
+    <Content Include="Views\Default\callPartial.cshtml" />
+    <Content Include="Views\Product\detail.cshtml" />
+    <Content Include="Views\ProductSyn\ProductSyn_Detail.cshtml" />
+    <Content Include="Views\ProductSyn\list.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
